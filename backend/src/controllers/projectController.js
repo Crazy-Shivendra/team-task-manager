@@ -44,7 +44,7 @@ const getProjects = async (req, res) => {
   }
 };
 
-const User = require("../models/tempUser");
+const User = require("../models/User");
 
 // ADD MEMBER TO PROJECT
 const addMember = async (req, res) => {
