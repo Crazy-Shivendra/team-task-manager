@@ -1,4 +1,4 @@
-const User = require("../models/User");
+const User = require("../models/tempUser");
 
 // GET ALL USERS
 const getUsers = async (req, res) => {
@@ -15,17 +15,9 @@ const getUsers = async (req, res) => {
   }
 };
 
-const promoteToAdmin = async (
-  req,
-  res
-) => {
-
+const promoteToAdmin = async (req, res) => {
   try {
-
-    const user =
-      await User.findById(
-        req.params.id
-      );
+    const user = await User.findById(req.params.id);
 
     if (!user) {
       return res.status(404).json({
@@ -38,21 +30,16 @@ const promoteToAdmin = async (
     await user.save();
 
     res.status(200).json({
-      message:
-        "User promoted to admin",
+      message: "User promoted to admin",
     });
-
   } catch (error) {
-
     res.status(500).json({
       message: error.message,
     });
-
   }
-
 };
 
 module.exports = {
   getUsers,
-    promoteToAdmin,
+  promoteToAdmin,
 };

@@ -1,16 +1,13 @@
 const Project = require("../models/Project");
 
-
 // CREATE PROJECT
 const createProject = async (req, res) => {
   try {
     if (req.user.role !== "admin") {
-
-  return res.status(403).json({
-    message: "Access denied",
-  });
-
-}
+      return res.status(403).json({
+        message: "Access denied",
+      });
+    }
 
     const { title, description } = req.body;
 
@@ -25,7 +22,6 @@ const createProject = async (req, res) => {
       message: "Project created successfully",
       project,
     });
-
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -33,17 +29,14 @@ const createProject = async (req, res) => {
   }
 };
 
-
 // GET ALL PROJECTS
 const getProjects = async (req, res) => {
   try {
-
     const projects = await Project.find()
       .populate("createdBy", "name email")
       .populate("members", "name email");
 
     res.status(200).json(projects);
-
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -51,13 +44,11 @@ const getProjects = async (req, res) => {
   }
 };
 
-const User = require("../models/User");
-
+const User = require("../models/tempUser");
 
 // ADD MEMBER TO PROJECT
 const addMember = async (req, res) => {
   try {
-
     const { projectId, userId } = req.body;
 
     // Find project
@@ -94,14 +85,12 @@ const addMember = async (req, res) => {
       message: "Member added successfully",
       project,
     });
-
   } catch (error) {
     res.status(500).json({
       message: error.message,
     });
   }
 };
-
 
 module.exports = {
   createProject,
